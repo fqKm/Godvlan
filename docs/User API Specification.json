@@ -12,8 +12,112 @@
     ],
     "paths": {
         "/user" : {
+            "post" : {
+                "description": "Register New User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "penjualBalon" : {
+                                    "description": "regis User Putrid",
+                                    "value": {
+                                        "username": "PenjualBalon",
+                                        "password": "balon",
+                                        "name": "Rusdi"
+                                    }
+                                }
+                            },
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "username","password","name"
+                                ],
+                                "properties": {
+                                    "username" : {
+                                        "type": "string"
+                                    },
+                                    "password" : {
+                                        "type": "string"
+                                    },
+                                    "name"     : {
+                                        "type": ["string"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error Validation",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "validationerror": {
+                                        "description": "Cant regis, Validation error",
+                                        "value": {
+                                            "errors":{
+                                                "usename": [
+                                                    "Username must be 5 char long"
+                                                ],
+                                                "password": [
+                                                    "passord must be 8 characters long"
+                                                ],
+                                                "name": [
+                                                    "name cant contain number"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "New User Succes",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "succes": {
+                                        "description": "New User Reg Succes",
+                                        "value": {
+                                            "data": {
+                                                "id": 1,
+                                                "username": "penjualBalon",
+                                                "name": "Rusdi"
+                                            }
+                                        }
+                                    }
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data" : {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "put" : {
-
+                "description": ""
             },
             "get" : {
 
@@ -23,6 +127,40 @@
             },
             "delete": {
 
+            }
+        },
+        "/user/login": {
+            "post": {
+                "description": "login user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "user Login Succes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/users": {
