@@ -55,15 +55,9 @@
                                         "description": "Validation failed",
                                         "value": {
                                             "errors": {
-                                                "username": [
-                                                    "Username must be 5 char long"
-                                                ],
-                                                "password": [
-                                                    "Password must be 8 characters long"
-                                                ],
-                                                "company": [
-                                                    "company can't contain number"
-                                                ]
+                                                "username": ["Username must be 5 char long"],
+                                                "password": ["Password must be 8 characters long"],
+                                                "company": ["company can't contain number"]
                                             }
                                         }
                                     }
@@ -121,7 +115,7 @@
                 "description": "Get Current User",
                 "parameters": [
                     {
-                        "username": "X-user-token",
+                        "name": "X-user-token",
                         "in": "header"
                     }
                 ],
@@ -152,8 +146,6 @@
                                         }
                                     }
                                 }
-
-                                }
                             }
                         }
                     }
@@ -163,14 +155,14 @@
                 "description": "Update Current User",
                 "parameters": [
                     {
-                        "username": "X-user-token",
+                        "name": "X-user-token",
                         "in": "header"
                     }
                 ],
                 "requestBody": {
                     "description": "update current User",
                     "content": {
-                        "aapplication/json": {
+                        "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -223,23 +215,20 @@
                                         }
                                     }
                                 }
-
                             }
                         }
                     }
                 }
-            }
-
             },
             "delete": {
                 "description": "Delete Current User from Database",
                 "parameters": [
                     {
-                        "username": "X-user-token",
+                        "name": "X-user-token",
                         "in": "header"
                     }
                 ],
-                "response": {
+                "responses": {
                     "200": {
                         "description": "Succes Update Current User",
                         "content": {
@@ -259,8 +248,8 @@
                         }
                     }
                 }
-            },
-
+            }
+        },
         "/user/login": {
             "post": {
                 "description": "Login User",
@@ -305,12 +294,8 @@
                                         "description": "Login field validation errors",
                                         "value": {
                                             "errors": {
-                                                "username": [
-                                                    "Username is required"
-                                                ],
-                                                "password": [
-                                                    "Password is required"
-                                                ]
+                                                "username": ["Username is required"],
+                                                "password": ["Password is required"]
                                             }
                                         }
                                     },
@@ -318,9 +303,7 @@
                                         "description": "Invalid login credentials",
                                         "value": {
                                             "errors": {
-                                                "credentials": [
-                                                    "Invalid username or password"
-                                                ]
+                                                "credentials": ["Invalid username or password"]
                                             }
                                         }
                                     }
@@ -368,11 +351,11 @@
                 "description": "Delete Current User",
                 "parameters": [
                     {
-                        "username": "X-user-token",
+                        "name": "X-user-token",
                         "in": "header"
                     }
                 ],
-                "response": {
+                "responses": {
                     "200": {
                         "description": "Succes Update Current User",
                         "content": {
@@ -398,3 +381,4 @@
             "get": {}
         }
     }
+}
