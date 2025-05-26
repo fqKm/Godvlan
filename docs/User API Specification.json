@@ -21,7 +21,7 @@
                                 "penjualBalon": {
                                     "description": "Register User Putrid",
                                     "value": {
-                                        "username": "PenjualBalon",
+                                        "email": "PenjualBalon@gmail.com",
                                         "password": "balon",
                                         "company": "Rusdi"
                                     }
@@ -29,9 +29,9 @@
                             },
                             "schema": {
                                 "type": "object",
-                                "required": ["username", "password", "company"],
+                                "required": ["email", "password", "company"],
                                 "properties": {
-                                    "username": {
+                                    "email": {
                                         "type": "string"
                                     },
                                     "password": {
@@ -55,7 +55,7 @@
                                         "description": "Validation failed",
                                         "value": {
                                             "errors": {
-                                                "username": ["Username must be 5 char long"],
+                                                "email": ["email must be 5 char long"],
                                                 "password": ["Password must be 8 characters long"],
                                                 "company": ["company can't contain number"]
                                             }
@@ -75,7 +75,7 @@
                                         "value": {
                                             "data": {
                                                 "id": 1,
-                                                "username": "penjualBalon",
+                                                "email": "penjualBalon",
                                                 "company": "Rusdi"
                                             }
                                         }
@@ -90,7 +90,7 @@
                                                 "id": {
                                                     "type": "number"
                                                 },
-                                                "username": {
+                                                "email": {
                                                     "type": "string"
                                                 },
                                                 "company": {
@@ -133,7 +133,10 @@
                                                 "id": {
                                                     "type": "number"
                                                 },
-                                                "username": {
+                                                "fullname": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
                                                     "type": "string"
                                                 },
                                                 "company": {
@@ -169,7 +172,7 @@
                                     "data": {
                                         "type": "object",
                                         "properties": {
-                                            "username": {
+                                            "email": {
                                                 "type": "string"
                                             },
                                             "password": {
@@ -202,7 +205,7 @@
                                                 "id": {
                                                     "type": "number"
                                                 },
-                                                "username": {
+                                                "email": {
                                                     "type": "string"
                                                 },
                                                 "company": {
@@ -265,7 +268,7 @@
                                             "id": {
                                                 "type": "number"
                                             },
-                                            "username": {
+                                            "email": {
                                                 "type": "string"
                                             },
                                             "company": {
@@ -294,7 +297,7 @@
                                         "description": "Login field validation errors",
                                         "value": {
                                             "errors": {
-                                                "username": ["Username is required"],
+                                                "email": ["email is required"],
                                                 "password": ["Password is required"]
                                             }
                                         }
@@ -303,7 +306,7 @@
                                         "description": "Invalid login credentials",
                                         "value": {
                                             "errors": {
-                                                "credentials": ["Invalid username or password"]
+                                                "credentials": ["Invalid email or password"]
                                             }
                                         }
                                     }
@@ -324,7 +327,7 @@
                                                 "id": {
                                                     "type": "number"
                                                 },
-                                                "username": {
+                                                "email": {
                                                     "type": "string"
                                                 },
                                                 "company": {
