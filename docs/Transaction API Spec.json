@@ -1,0 +1,112 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Transaction Spesification",
+        "description": "Transaction Spesification",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://localhost:8080/api/v1"
+        }
+    ],
+    "paths": {
+        "/transaction": {
+            "post": {
+                "description": "create new transaction",
+                "parameters": [
+                    {
+                        "name": "X-user-token",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "description": "create new transaction",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["date","nominal","jenis"],
+                                "properties": {
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "nominal": {
+                                        "type": "number"
+                                    },
+                                    "jenis": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "create new transaction succes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                },
+                                                "nominal": {
+                                                    "type": "number"
+                                                },
+                                                "jenis": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "error": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "cant create transaction",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "valueError": {
+                                        "description": "Value not found",
+                                        "value": {
+                                            "errors": {
+                                                "date": ["date must be fillet"],
+                                                "nominal": ["cant contain letter"],
+                                                "jenis": ["please choose transaction type"]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "description": "get User Transaction",
+                "parameters": [
+                    {
+                        "name": "X-user-token",
+                        "in": "header"
+                    }
+                ]
+            }
+        }
+    }
+}
