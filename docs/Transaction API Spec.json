@@ -26,11 +26,7 @@
                         "application/json": {
                             "schema": {
                                 "type": "object",
-                                "required": [
-                                    "date",
-                                    "nominal",
-                                    "jenis"
-                                ],
+                                "required": ["date", "nominal", "jenis"],
                                 "properties": {
                                     "date": {
                                         "type": "string",
@@ -96,15 +92,9 @@
                                         "description": "Value not found",
                                         "value": {
                                             "errors": {
-                                                "date": [
-                                                    "date must be fillet"
-                                                ],
-                                                "nominal": [
-                                                    "cant contain letter"
-                                                ],
-                                                "jenis": [
-                                                    "please choose transaction type"
-                                                ]
+                                                "date": ["date must be fillet"],
+                                                "nominal": ["cant contain letter"],
+                                                "jenis": ["please choose transaction type"]
                                             }
                                         }
                                     }
@@ -172,24 +162,22 @@
                 "requestBody": {
                     "description": "Update Current transaction",
                     "content": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "date": {
-                                            "type": "string",
-                                            "format": "date"
-                                        },
-                                        "nominal": {
-                                            "type": "number"
-                                        },
-                                        "jenisTransaksi": {
-                                            "type": "string"
-                                        },
-                                        "keterangan": {
-                                            "type": "string"
-                                        }
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "nominal": {
+                                        "type": "number"
+                                    },
+                                    "jenisTransaksi": {
+                                        "type": "string"
+                                    },
+                                    "keterangan": {
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -244,20 +232,18 @@
                     }
                 ],
                 "responses": {
-                    "responses": {
-                        "200": {
-                            "description": "Succes Delete transaction",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "type": "object",
-                                        "properties": {
-                                            "data": {
-                                                "type": "boolean"
-                                            },
-                                            "errors": {
-                                                "type": "object"
-                                            }
+                    "200": {
+                        "description": "Succes Delete transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "object"
                                         }
                                     }
                                 }
