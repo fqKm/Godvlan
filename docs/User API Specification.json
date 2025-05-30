@@ -23,18 +23,22 @@
                                     "value": {
                                         "email": "PenjualBalon@gmail.com",
                                         "password": "balon",
+                                        "name": "Azril",
                                         "company": "Rusdi"
                                     }
                                 }
                             },
                             "schema": {
                                 "type": "object",
-                                "required": ["email", "password", "company"],
+                                "required": ["email", "password", "name", "company"],
                                 "properties": {
                                     "email": {
                                         "type": "string"
                                     },
                                     "password": {
+                                        "type": "string"
+                                    },
+                                    "name": {
                                         "type": "string"
                                     },
                                     "company": {
@@ -57,6 +61,7 @@
                                             "errors": {
                                                 "email": ["email must be 5 char long"],
                                                 "password": ["Password must be 8 characters long"],
+                                                "name": ["name cant be empty"],
                                                 "company": ["company can't contain number"]
                                             }
                                         }
@@ -76,6 +81,7 @@
                                             "data": {
                                                 "id": 1,
                                                 "email": "penjualBalon",
+                                                "name": "Azril",
                                                 "company": "Rusdi"
                                             }
                                         }
@@ -91,6 +97,9 @@
                                                     "type": "number"
                                                 },
                                                 "email": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
                                                     "type": "string"
                                                 },
                                                 "company": {
@@ -109,7 +118,7 @@
                 }
             },
             "put": {
-                "description": ""
+                "description": "Update or Replace User Info (Full Update)"
             },
             "get": {
                 "description": "Get Current User",
@@ -133,7 +142,7 @@
                                                 "id": {
                                                     "type": "number"
                                                 },
-                                                "fullname": {
+                                                "name": {
                                                     "type": "string"
                                                 },
                                                 "email": {
@@ -178,6 +187,9 @@
                                             "password": {
                                                 "type": "string"
                                             },
+                                            "name": {
+                                                "type": "string"
+                                            },
                                             "company": {
                                                 "type": "string"
                                             }
@@ -206,6 +218,9 @@
                                                     "type": "number"
                                                 },
                                                 "email": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
                                                     "type": "string"
                                                 },
                                                 "company": {
@@ -271,6 +286,9 @@
                                             "email": {
                                                 "type": "string"
                                             },
+                                            "name": {
+                                                "type": "string"
+                                            },
                                             "company": {
                                                 "type": "string"
                                             },
@@ -330,6 +348,9 @@
                                                 "email": {
                                                     "type": "string"
                                                 },
+                                                "name": {
+                                                    "type": "string"
+                                                },
                                                 "company": {
                                                     "type": "string"
                                                 },
@@ -381,7 +402,38 @@
             }
         },
         "/users": {
-            "get": {}
+            "get": {
+                "description": "Get All Users",
+                "responses": {
+                    "200": {
+                        "description": "List of All Users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": { "type": "number" },
+                                                    "email": { "type": "string" },
+                                                    "name": { "type": "string" },
+                                                    "company": { "type": "string" }
+                                                }
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
