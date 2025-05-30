@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->date("tanggalTransaksi")->nullable(false);
             $table->double("nominal",10)->nullable(false);
-            $table->enum("jenisTransaksi",100)->nullable(false);
+            $table->enum("jenisTransaksi", ["pemasukan", "pengeluaran"])->nullable(false);
             $table->string("deskripsi",100)->nullable(true);
+            $table->unsignedBigInteger("user_id")->nullable(false);
             $table->timestamps();
+
+            $table->foreign("user_id")->on("users")->references("id");
         });
     }
 
