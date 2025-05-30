@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
             'email'=>'Negroid',
             'password'=>Hash::make('masamba123'),
             'name'=>'Rusdi',
-            'company'=>'Godvlan'
+            'company'=>'Godvlan',
+            'token'=>'ambatublow'
         ]);
     }
 }

@@ -115,4 +115,48 @@ class UserTest extends TestCase
                 ]
             ]);
     }
+
+    public function testGetProfileSucces()
+    {
+        $this->seed(UserSeeder::class);
+        $this->get('/api/profile',[
+            'Authorization'=>'Ambatublow'
+        ])->assertStatus(200)
+            ->assertJson([
+                'data'=>[
+                    'email'=>'Negroid',
+                    'name'=>'Rusdi',
+                    'company'=>'Godvlan',
+                ]
+            ]);
+    }
+
+    public function testGetProfileUnauthorized()
+    {
+        $this->seed(UserSeeder::class);
+        $this->get('/api/profile')
+            ->assertStatus(401)
+            ->assertJson([
+                'error'=>[
+                    'message'=>[
+                        "Unauthorized"
+                    ]
+                ]
+            ]);
+    }
+
+    public function testUpdateInvalidToken()
+    {
+        $this->seed(UserSeeder::class);
+        $this->get('/api/profile',[
+            'Authorization'=>'Ambatukam'
+        ])->assertStatus(401)
+            ->assertJson([
+                'error'=>[
+                    'message'=>[
+                        "Unauthorized"
+                    ]
+                ]
+            ]);
+    }
 }
