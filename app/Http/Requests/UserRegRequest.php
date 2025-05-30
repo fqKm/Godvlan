@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Password;
+use Illuminate\Http\Exceptions\HttpResponseException;
 class UserRegRequest extends FormRequest
 {
     /**
@@ -22,7 +24,23 @@ class UserRegRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email'=>['required','max:100'],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:100',
+                'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/'
+            ],
+            'name'=>['required','max:100'],
+            'company'=>['required','max:100'],
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response([
+            "errors"=>$validator->getMessageBag()
+        ],400));
     }
 }

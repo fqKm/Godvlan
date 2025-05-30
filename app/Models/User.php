@@ -10,8 +10,16 @@ class User extends Model
     protected $table = 'users';
     protected $primaryKey= "id";
     protected $keyType ='int';
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'company'
+    ];
     public $timestamps = true;
     public $incrementing = true;
+
 
     public function transaction():HasMany{
         return $this->hasMany(Transaction::class,"user_id", "id");
