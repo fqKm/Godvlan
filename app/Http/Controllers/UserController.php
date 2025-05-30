@@ -21,7 +21,7 @@ class UserController extends Controller
         if(User::where('email', $data['email'])->count()==1){
             throw new HttpResponseException(response([
                 "errors"=>[
-                    "email"=>[
+                    "message"=>[
                         "Email sudah terdaftar"
                     ]
                 ]
@@ -41,8 +41,8 @@ class UserController extends Controller
         if(!$user || !Hash::check($data['password'],$user->password)){
             throw new HttpResponseException(response([
                 "errors"=>[
-                    "email"=>[
-                        "Email atau Password salah"
+                    "message"=>[
+                        "Email or Password is wrong"
                     ]
                 ]
             ],401));

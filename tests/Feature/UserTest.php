@@ -61,45 +61,57 @@ class UserTest extends TestCase
         ])->assertStatus(400)
             ->assertJson([
                 "errors"=> [
-                    "email"=>[
+                    "message"=>[
                         "Email sudah terdaftar"
                     ]
                 ]
             ]);
     }
-
-    public function LoginSucces()
+    public function testLoginSucces()
     {
         $this->seed(UserSeeder::class);
         $this->post('/api/login',[
             'email'=>'Negroid',
-            'password'=>'masamba123',
-            'company'=>'Godvlan'
+            'password'=>'masamba123'
         ])->assertStatus(200)
             ->assertJson([
                 "data"=> [
                     'email'=>'Negroid',
-                    'password'=>'masamba12',
+                    'name'=>'Rusdi',
                     'company'=>'Godvlan'
                 ]
             ]);
-
         $user = User::where('email','Negroid')->first();
         self::assertNotNull($user->token);
     }
 
-    public function LoginFailed()
+    public function testLoginFailedPasswordisWrong()
     {
+        $this->seed(UserSeeder::class);
         $this->post('/api/login',[
             'email'=>'Negroid',
-            'password'=>'masamba123',
-            'company'=>'Godvlan'
-        ])->assertStatus(200)
+            'password'=>'masamba'
+        ])->assertStatus(401)
             ->assertJson([
                 "errors"=> [
-                    'email'=>'Negroid',
-                    'password'=>'masamba12',
-                    'company'=>'Godvlan'
+                    "message"=>[
+                        "Email or Password is wrong"
+                    ]
+                ]
+            ]);
+    }
+    public function testLoginFailedUsernamenotFound()
+    {
+        $this->seed(UserSeeder::class);
+        $this->post('/api/login',[
+            'email'=>'Negro',
+            'password'=>'masamba123'
+        ])->assertStatus(401)
+            ->assertJson([
+                "errors"=> [
+                    "message"=>[
+                        "Email or Password is wrong"
+                    ]
                 ]
             ]);
     }
