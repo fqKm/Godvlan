@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->date("tanggalTransaksi")->nullable(false);
+            $table->double("nominal",10)->nullable(false);
+            $table->enum("jenisTransaksi",100)->nullable(false);
+            $table->string("deskripsi",100)->nullable(true);
             $table->timestamps();
         });
     }

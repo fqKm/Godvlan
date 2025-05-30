@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    //
+    protected $table = 'transactions';
+    protected $primaryKey= "id";
+    protected $keyType ='int';
+    public $timestamps = true;
+    public $incrementing = true;
 }
