@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegRequest;
 use App\Http\Resources\UserResources;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -31,5 +33,22 @@ class UserController extends Controller
         $user->save();
 
         return (new UserResources($user))-> response() ->setStatusCode(201);
+    }
+
+    public function login(UserLoginRequest $request):UserResources{
+        $data=$request->validated();
+        $user= User::where('email',$data['email'])->first();
+        if(!$user || !Hash::check($data['password'],$user->password)){
+            throw new HttpResponseException(response([
+                "errors"=>[
+                    "email"=>[
+                        "Email atau Password salah"
+                    ]
+                ]
+            ],401));
+        }
+        $user->token= Str::uuid()->toString();
+        $user->save();
+        return new UserResources($user);
     }
 }
