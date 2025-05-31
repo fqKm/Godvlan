@@ -254,6 +254,8 @@ class UserTest extends TestCase
             ->assertJson([
                 'data'=>true
             ]);
+        $user=User::where('email','Negroid')->first();
+        self::assertNull($user->token);
     }
     public function testLogoutFailed(){
         $this->seed(UserSeeder::class);
