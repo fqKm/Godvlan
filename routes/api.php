@@ -15,6 +15,7 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
     Route::get('profile',[\App\Http\Controllers\UserController::class,'profile']);
     Route::patch('profile/update',[\App\Http\Controllers\UserController::class,'update']);
     Route::delete('logout',[\App\Http\Controllers\UserController::class,'logout']);
+    Route::post('transaction/add',[\App\Http\Controllers\TransactionController::class,'add']);
 });
 
 

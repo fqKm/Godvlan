@@ -69,7 +69,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "create new transaction and return latest transactions",
                         "content": {
                             "application/json": {
