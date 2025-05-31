@@ -13,6 +13,7 @@ Route::post('login',[\App\Http\Controllers\UserController::class,'login']);
 
 Route::middleware(ApiAuthMiddleware::class)->group(function(){
     Route::get('profile',[\App\Http\Controllers\UserController::class,'profile']);
+    Route::patch('profile/update',[\App\Http\Controllers\UserController::class,'update']);;
 });
 
 

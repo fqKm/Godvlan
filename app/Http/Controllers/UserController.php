@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResources;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -55,5 +56,24 @@ class UserController extends Controller
     public function profile(Request $request):UserResources{
        $user = Auth::user();
        return new UserResources($user);
+    }
+
+    public function update(UserUpdateRequest $request):UserResources
+    {
+        $data=$request->validated();
+        $user = Auth::user();
+        if(isset($data['name'])){
+            $user->name=$data['name'];
+        }
+
+        if(isset($data['password'])){
+            $user->password=Hash::make($data['password']);
+        }
+
+        if(isset($data['company'])){
+            $user->company=$data['company'];
+        }
+        $user->save();
+        return new UserResources($user);
     }
 }

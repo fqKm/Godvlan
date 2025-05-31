@@ -7,6 +7,7 @@ use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertNotEquals;
 
 class UserTest extends TestCase
 {
@@ -159,4 +160,91 @@ class UserTest extends TestCase
                 ]
             ]);
     }
+
+    public function testUpdatePasswordSucces(){
+        $this->seed(UserSeeder::class);
+        $oldUser=User::where('email','Negroid')->first();
+        $this->patch('/api/profile/update',
+            [
+                'password'=>'ambasings123'
+            ],
+            [
+            'Authorization'=>'Ambatublow'
+            ]
+        )->assertStatus(200)
+            ->assertJson([
+                'data'=>[
+                    'email'=>'Negroid',
+                    'name'=>'Rusdi',
+                    'company'=>'Godvlan',
+                ]
+            ]);
+        $updatedUser=User::where('email','Negroid')->first();
+        self::assertNotEquals($oldUser->password,$updatedUser->password);
+    }
+
+    public function testUpdateNameSucces(){
+        $this->seed(UserSeeder::class);
+        $oldUser=User::where('email','Negroid')->first();
+        $this->patch('/api/profile/update',
+            [
+                'name'=>'Azril'
+            ],
+            [
+                'Authorization'=>'Ambatublow'
+            ]
+        )->assertStatus(200)
+            ->assertJson([
+                'data'=>[
+                    'email'=>'Negroid',
+                    'name'=>'Azril',
+                    'company'=>'Godvlan',
+                ]
+            ]);
+        $updatedUser=User::where('email','Negroid')->first();
+        self::assertNotEquals($oldUser->name,$updatedUser->name);
+    }
+
+    public function testUpdateCompanySucces(){
+        $this->seed(UserSeeder::class);
+        $oldUser=User::where('email','Negroid')->first();
+        $this->patch('/api/profile/update',
+            [
+                'company'=>'Azril'
+            ],
+            [
+                'Authorization'=>'Ambatublow'
+            ]
+        )->assertStatus(200)
+            ->assertJson([
+                'data'=>[
+                    'email'=>'Negroid',
+                    'name'=>'Rusdi',
+                    'company'=>'Azril',
+                ]
+            ]);
+        $updatedUser=User::where('email','Negroid')->first();
+        self::assertNotEquals($oldUser->company,$updatedUser->company);
+    }
+    public function testUpdateFailed(){
+        $this->seed(UserSeeder::class);
+        $oldUser=User::where('email','Negroid')->first();
+        $this->patch('/api/profile/update',
+            [
+                'name'=>'Raja Diraja Senja di Atas Awan, Pelindung Hutan Rimba yang Hilang, Penjaga Rahasia Sungai yang Mengalir ke Samudra Abadi, Pewaris Cahaya Bintang Paling Tua'
+            ],
+            [
+                'Authorization'=>'Ambatublow'
+            ]
+        )->assertStatus(400)
+            ->assertJson([
+                'errors'=>[
+                    'name'=>[
+                        "The name field must not be greater than 100 characters."
+                    ]
+                ]
+            ]);
+    }
+
+
 }
