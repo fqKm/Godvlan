@@ -21,5 +21,12 @@ class UserSeeder extends Seeder
             'company'=>'Godvlan',
             'token'=>'ambatublow'
         ]);
+        User::create([
+            'email'=>'Negroid2@gmail.com',
+            'password'=>Hash::make('masamba1232'),
+            'name'=>'Rusdi2',
+            'company'=>'Godvlan2',
+            'token'=>'ambatublow2'
+        ]);
     }
 }
