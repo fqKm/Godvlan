@@ -121,7 +121,7 @@ class UserTest extends TestCase
     {
         $this->seed(UserSeeder::class);
         $this->get('/api/profile',[
-            'Authorization'=>'Ambatublow'
+            'Authorization'=>'ambatublow'
         ])->assertStatus(200)
             ->assertJson([
                 'data'=>[
@@ -169,7 +169,7 @@ class UserTest extends TestCase
                 'password'=>'ambasings123'
             ],
             [
-            'Authorization'=>'Ambatublow'
+            'Authorization'=>'ambatublow'
             ]
         )->assertStatus(200)
             ->assertJson([
@@ -191,7 +191,7 @@ class UserTest extends TestCase
                 'name'=>'Azril'
             ],
             [
-                'Authorization'=>'Ambatublow'
+                'Authorization'=>'ambatublow'
             ]
         )->assertStatus(200)
             ->assertJson([
@@ -213,7 +213,7 @@ class UserTest extends TestCase
                 'company'=>'Azril'
             ],
             [
-                'Authorization'=>'Ambatublow'
+                'Authorization'=>'ambatublow'
             ]
         )->assertStatus(200)
             ->assertJson([
@@ -234,7 +234,7 @@ class UserTest extends TestCase
                 'name'=>'Raja Diraja Senja di Atas Awan, Pelindung Hutan Rimba yang Hilang, Penjaga Rahasia Sungai yang Mengalir ke Samudra Abadi, Pewaris Cahaya Bintang Paling Tua'
             ],
             [
-                'Authorization'=>'Ambatublow'
+                'Authorization'=>'ambatublow'
             ]
         )->assertStatus(400)
             ->assertJson([
@@ -246,5 +246,27 @@ class UserTest extends TestCase
             ]);
     }
 
+    public function testLogoutSucces(){
+        $this->seed(UserSeeder::class);
+        $this->delete('/api/logout',[],[
+            'Authorization'=>'ambatublow'
+        ])->assertStatus(200)
+            ->assertJson([
+                'data'=>true
+            ]);
+    }
+    public function testLogoutFailed(){
+        $this->seed(UserSeeder::class);
+        $this->delete('/api/logout',[
+            'Authorization'=>'Ambatukam'
+        ])->assertStatus(401)
+            ->assertJson([
+                'error'=>[
+                    'message'=>[
+                        "Unauthorized"
+                    ]
+                ]
+            ]);
+    }
 
 }
