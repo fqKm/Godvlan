@@ -108,7 +108,7 @@ class TransactionTest extends TestCase
             ->assertJson([
                 'error'=>[
                     'message'=>[
-                        "Message not found"
+                        "Transaction not found"
                     ]
                 ]
             ]);
@@ -126,7 +126,7 @@ class TransactionTest extends TestCase
             ->assertJson([
                 'error'=>[
                     'message'=>[
-                        "Message not found"
+                        "Transaction not found"
                     ]
                 ]
             ]);
@@ -179,5 +179,37 @@ class TransactionTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    public function testDeleteTransactionSuccess()
+    {
+        $this->seed([UserSeeder::class,TransactionSeeder::class]);
+        $transaction=Transaction::query()->limit(1)->first();
+        $this->delete('/api/transaction/delete/'.$transaction->id, [],
+            [
+                "Authorization"=>'ambatublow'
+            ]
+        )->assertStatus(200)
+            ->assertJson([
+                'data'=>true
+            ]);
+    }
+    public function testDeleteTransactionNotFound()
+    {
+        $this->seed([UserSeeder::class,TransactionSeeder::class]);
+        $transaction=Transaction::query()->limit(1)->first();
+        $this->delete('/api/transaction/delete/'.$transaction->id+1, [],
+            [
+                "Authorization"=>'ambatublow'
+            ]
+        )->assertStatus(404)
+            ->assertJson([
+                'error'=>[
+                    'message'=>[
+                        "Transaction not found"
+                    ]
+                ]
+            ]);
+
     }
 }

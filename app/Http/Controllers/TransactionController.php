@@ -81,7 +81,7 @@ class TransactionController extends Controller
             throw new HttpResponseException(response()->json([
                 'error'=>[
                     "message"=>[
-                        "Message not found"
+                        "Transaction not found"
                     ]
                 ]
             ])->setStatusCode(404));
@@ -98,7 +98,7 @@ class TransactionController extends Controller
             throw new HttpResponseException(response()->json([
                 'error'=>[
                     "message"=>[
-                        "Message not found"
+                        "Transaction not found"
                     ]
                 ]
             ])->setStatusCode(404));
@@ -109,4 +109,23 @@ class TransactionController extends Controller
         return new TransactionResources($transactions);
     }
 
+    public function delete(int $id):JsonResponse
+    {
+        $user= Auth::user();
+        $transactions= Transaction::where('id',$id)->where('user_id',$user->id)->first();
+        if (!$transactions){
+            throw new HttpResponseException(response()->json([
+                'error'=>[
+                    "message"=>[
+                        "Transaction not found"
+                    ]
+                ]
+            ])->setStatusCode(404));
+        }
+        $transactions->delete();
+        return response()->json([
+            'data'=>true
+            ]
+        )->setStatusCode(200);
+    }
 }
