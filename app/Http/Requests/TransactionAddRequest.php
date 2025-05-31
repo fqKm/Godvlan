@@ -11,7 +11,7 @@ class TransactionAddRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()!==null;
     }
 
     /**
@@ -22,7 +22,10 @@ class TransactionAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date'=>['required','date'],
+            'jenisTransaksi'=>['required','in:pemasukan,pengeluaran'],
+            'nominal'=>['required','numeric','min:0'],
+            'deskripsi'=>['nullable', 'string', 'max:100']
         ];
     }
 }

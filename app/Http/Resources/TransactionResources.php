@@ -14,6 +14,11 @@ class TransactionResources extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'date'=>$this->date,
+            'jenisTransaksi'=>$this->jenisTransaksi,
+            'nominal'=>$this->nominal,
+            'deskripsi'=>$this->deskripsi,
+        ];
     }
 }

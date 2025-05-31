@@ -72,17 +72,17 @@ class UserTest extends TestCase
     {
         $this->seed(UserSeeder::class);
         $this->post('/api/login',[
-            'email'=>'Negroid',
+            'email'=>'Negroid@gmail.com',
             'password'=>'masamba123'
         ])->assertStatus(200)
             ->assertJson([
                 "data"=> [
-                    'email'=>'Negroid',
+                    'email'=>'Negroid@gmail.com',
                     'name'=>'Rusdi',
                     'company'=>'Godvlan'
                 ]
             ]);
-        $user = User::where('email','Negroid')->first();
+        $user = User::where('email','Negroid@gmail.com')->first();
         self::assertNotNull($user->token);
     }
 
@@ -90,7 +90,7 @@ class UserTest extends TestCase
     {
         $this->seed(UserSeeder::class);
         $this->post('/api/login',[
-            'email'=>'Negroid',
+            'email'=>'Negroid@gmail.com',
             'password'=>'masamba'
         ])->assertStatus(401)
             ->assertJson([
@@ -105,7 +105,7 @@ class UserTest extends TestCase
     {
         $this->seed(UserSeeder::class);
         $this->post('/api/login',[
-            'email'=>'Negro',
+            'email'=>'Negro@gmmail.com',
             'password'=>'masamba123'
         ])->assertStatus(401)
             ->assertJson([
@@ -125,7 +125,7 @@ class UserTest extends TestCase
         ])->assertStatus(200)
             ->assertJson([
                 'data'=>[
-                    'email'=>'Negroid',
+                    'email'=>'Negroid@gmail.com',
                     'name'=>'Rusdi',
                     'company'=>'Godvlan',
                 ]
@@ -163,7 +163,7 @@ class UserTest extends TestCase
 
     public function testUpdatePasswordSucces(){
         $this->seed(UserSeeder::class);
-        $oldUser=User::where('email','Negroid')->first();
+        $oldUser=User::where('email','Negroid@gmail.com')->first();
         $this->patch('/api/profile/update',
             [
                 'password'=>'ambasings123'
@@ -174,18 +174,18 @@ class UserTest extends TestCase
         )->assertStatus(200)
             ->assertJson([
                 'data'=>[
-                    'email'=>'Negroid',
+                    'email'=>'Negroid@gmail.com',
                     'name'=>'Rusdi',
                     'company'=>'Godvlan',
                 ]
             ]);
-        $updatedUser=User::where('email','Negroid')->first();
+        $updatedUser=User::where('email','Negroid@gmail.com')->first();
         self::assertNotEquals($oldUser->password,$updatedUser->password);
     }
 
     public function testUpdateNameSucces(){
         $this->seed(UserSeeder::class);
-        $oldUser=User::where('email','Negroid')->first();
+        $oldUser=User::where('email','Negroid@gmail.com')->first();
         $this->patch('/api/profile/update',
             [
                 'name'=>'Azril'
@@ -196,18 +196,18 @@ class UserTest extends TestCase
         )->assertStatus(200)
             ->assertJson([
                 'data'=>[
-                    'email'=>'Negroid',
+                    'email'=>'Negroid@gmail.com',
                     'name'=>'Azril',
                     'company'=>'Godvlan',
                 ]
             ]);
-        $updatedUser=User::where('email','Negroid')->first();
+        $updatedUser=User::where('email','Negroid@gmail.com')->first();
         self::assertNotEquals($oldUser->name,$updatedUser->name);
     }
 
     public function testUpdateCompanySucces(){
         $this->seed(UserSeeder::class);
-        $oldUser=User::where('email','Negroid')->first();
+        $oldUser=User::where('email','Negroid@gmail.com')->first();
         $this->patch('/api/profile/update',
             [
                 'company'=>'Azril'
@@ -218,17 +218,17 @@ class UserTest extends TestCase
         )->assertStatus(200)
             ->assertJson([
                 'data'=>[
-                    'email'=>'Negroid',
+                    'email'=>'Negroid@gmail.com',
                     'name'=>'Rusdi',
                     'company'=>'Azril',
                 ]
             ]);
-        $updatedUser=User::where('email','Negroid')->first();
+        $updatedUser=User::where('email','Negroid@gmail.com')->first();
         self::assertNotEquals($oldUser->company,$updatedUser->company);
     }
     public function testUpdateFailed(){
         $this->seed(UserSeeder::class);
-        $oldUser=User::where('email','Negroid')->first();
+        $oldUser=User::where('email','Negroid@gmail.com')->first();
         $this->patch('/api/profile/update',
             [
                 'name'=>'Raja Diraja Senja di Atas Awan, Pelindung Hutan Rimba yang Hilang, Penjaga Rahasia Sungai yang Mengalir ke Samudra Abadi, Pewaris Cahaya Bintang Paling Tua'
@@ -254,7 +254,7 @@ class UserTest extends TestCase
             ->assertJson([
                 'data'=>true
             ]);
-        $user=User::where('email','Negroid')->first();
+        $user=User::where('email','Negroid@gmail.com')->first();
         self::assertNull($user->token);
     }
     public function testLogoutFailed(){
