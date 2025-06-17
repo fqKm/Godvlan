@@ -19,5 +19,12 @@ class TransactionSeeder extends Seeder
             'deskripsi'=>'Pemasukan dari pemilik',
             'user_id'=>$user->id
         ]);
+        Transaction::create([
+            'tanggalTransaksi'=>'2022-02-01',
+            'jenisTransaksi'=>'pengeluaran',
+            'nominal'=>'1200000',
+            'deskripsi' => 'Pengeluaran dari pemilik',
+            'user_id'=>$user->id
+        ]);
     }
 }

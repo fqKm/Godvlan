@@ -8,6 +8,7 @@ use Database\Seeders\TransactionSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 class TransactionTest extends TestCase
@@ -211,5 +212,30 @@ class TransactionTest extends TestCase
                 ]
             ]);
 
+    }
+
+    public function testGetByDateSuccess()
+    {
+        $this->seed([UserSeeder::class,TransactionSeeder::class]);
+        $data = $this->get('/api/transaction/history/date_range?start_date=2022-01-01&end_date=2023-01-01', [
+            "Authorization" => 'ambatublow'
+        ])->assertStatus(200)->assertJson([
+            "data"=>[
+                [
+                    'id'=>'2',
+                    'tanggalTransaksi'=>'2022-02-01',
+                    'jenisTransaksi'=>'pengeluaran',
+                    'nominal'=>'1200000',
+                    'deskripsi'=>'Pengeluaran dari pemilik',
+                ],
+                [
+                    'id'=>'1',
+                    'tanggalTransaksi'=>'2022-01-01',
+                    'jenisTransaksi'=>'pemasukan',
+                    'nominal'=>'1000000',
+                    'deskripsi'=>'Pemasukan dari pemilik',
+                ]
+            ]
+        ]);
     }
 }

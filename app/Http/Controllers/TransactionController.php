@@ -128,4 +128,24 @@ class TransactionController extends Controller
             ]
         )->setStatusCode(200);
     }
+
+    public function getByDate(Request $request):JsonResponse{
+        $user = Auth::user();
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+        if($startDate != null && $endDate != null){
+            $transaction = Transaction::where('user_id', $user->id)->whereBetween('tanggalTransaksi', [$startDate, $endDate] )->orderBy('tanggalTransaksi', 'desc')->get();
+        } else {
+            throw new HttpResponseException(response()->json([
+                'error'=>[
+                    "message"=>[
+                        "Start date and end date required"
+                    ]
+                ]
+            ]));
+        }
+
+        return response()->json([
+            'data'=>TransactionResources::collection($transaction)])->setStatusCode(200);
+    }
 }

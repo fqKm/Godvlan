@@ -53,7 +53,7 @@ class UserController extends Controller
         $user->save();
         return new UserResources($user);
     }
-    public function profile(Request $request):UserResources{
+    public function profile():UserResources{
        $user = Auth::user();
        return new UserResources($user);
     }
@@ -76,7 +76,7 @@ class UserController extends Controller
         $user->save();
         return new UserResources($user);
     }
-    public function logout(Request $request):JsonResponse{
+    public function logout():JsonResponse{
         $user = Auth::user();
         $user->token=null;
         $user->save();

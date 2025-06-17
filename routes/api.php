@@ -20,6 +20,7 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
     Route::get('transaction/history/{id}',[\App\Http\Controllers\TransactionController::class,'show'])->where('id','[0-9]+');
     Route::patch('transaction/edit/{id}',[\App\Http\Controllers\TransactionController::class,'update'])->where('id','[0-9]+');
     Route::delete('transaction/delete/{id}',[\App\Http\Controllers\TransactionController::class,'delete'])->where('id','[0-9]+');
+    Route::get('transaction/history/date_range',[\App\Http\Controllers\TransactionController::class,'getByDate']);
 });
 
 
