@@ -1,0 +1,318 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Transaction Specification",
+        "description": "Transaction Specification",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://localhost:8080/api/v1"
+        }
+    ],
+    "paths": {
+        "/transaction": {
+            "post": {
+                "description": "create new transaction",
+                "parameters": [
+                    {
+                        "name": "X-user-token",
+                        "in": "header"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "create new transaction",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "date",
+                                    "nominal",
+                                    "jenisTransaksi"
+                                ],
+                                "properties": {
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "nominal": {
+                                        "type": "number"
+                                    },
+                                    "jenisTransaksi": {
+                                        "type": "string"
+                                    },
+                                    "keterangan": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "create new transaction and return latest transactions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "transactions": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number"
+                                                            },
+                                                            "date": {
+                                                                "type": "string",
+                                                                "format": "date"
+                                                            },
+                                                            "nominal": {
+                                                                "type": "number"
+                                                            },
+                                                            "jenisTransaksi": {
+                                                                "type": "string"
+                                                            },
+                                                            "keterangan": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "pagination": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "page": {
+                                                            "type": "integer"
+                                                        },
+                                                        "size": {
+                                                            "type": "integer"
+                                                        },
+                                                        "totalItems": {
+                                                            "type": "integer"
+                                                        },
+                                                        "totalPages": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "error": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "cant create transaction",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "valueError": {
+                                        "description": "Value not found",
+                                        "value": {
+                                            "errors": {
+                                                "date": [
+                                                    "date must be filled"
+                                                ],
+                                                "nominal": [
+                                                    "can't contain letter"
+                                                ],
+                                                "jenisTransaksi": [
+                                                    "please choose transaction type"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "get User Transaction",
+                "parameters": [
+                    {
+                        "name": "X-user-token",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "show transaction success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "transactions": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "number"
+                                                            },
+                                                            "date": {
+                                                                "type": "string",
+                                                                "format": "date"
+                                                            },
+                                                            "nominal": {
+                                                                "type": "number"
+                                                            },
+                                                            "jenisTransaksi": {
+                                                                "type": "string"
+                                                            },
+                                                            "keterangan": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "error": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update transaction",
+                "parameters": [
+                    {
+                        "name": "X-user-token",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update Current transaction",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "nominal": {
+                                        "type": "number"
+                                    },
+                                    "jenisTransaksi": {
+                                        "type": "string"
+                                    },
+                                    "keterangan": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "update transaction success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                },
+                                                "nominal": {
+                                                    "type": "number"
+                                                },
+                                                "jenisTransaksi": {
+                                                    "type": "string"
+                                                },
+                                                "keterangan": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "error": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete transaction",
+                "parameters": [
+                    {
+                        "name": "X-user-token",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success delete transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
