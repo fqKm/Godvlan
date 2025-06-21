@@ -38,7 +38,7 @@ class UserController extends Controller
         return (new UserResources($user))-> response() ->setStatusCode(201);
     }
 
-    public function login(UserLoginRequest $request):UserResources{
+    public function login(UserLoginRequest $request):JsonResponse{
         $data=$request->validated();
         $user= User::where('email',$data['email'])->first();
         if(!$user || !Hash::check($data['password'],$user->password)){
@@ -52,14 +52,14 @@ class UserController extends Controller
         }
         $user->token= Str::uuid()->toString();
         $user->save();
-        return new UserResources($user);
+        return (new UserResources($user))->response() ->setStatusCode(200);
     }
-    public function profile():UserResources{
+    public function profile():JsonResponse{
        $user = Auth::user();
-       return new UserResources($user);
+       return (new UserResources($user))-> response() ->setStatusCode(200);
     }
 
-    public function update(UserUpdateRequest $request):UserResources
+    public function update(UserUpdateRequest $request):JsonResponse
     {
         $data=$request->validated();
         $user = Auth::user();
@@ -75,7 +75,7 @@ class UserController extends Controller
             $user->company=$data['company'];
         }
         $user->save();
-        return new UserResources($user);
+        return (new UserResources($user))->response()->setStatusCode(200);
     }
     public function logout():JsonResponse{
         $user = Auth::user();
